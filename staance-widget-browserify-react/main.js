@@ -41,7 +41,8 @@ function createWidgets(){
       if(scriptData && scriptData.match(re) && window['staance-widget-data'].indexOf(el) < 0){
         var widget = getParams(scriptData),
         div = document.createElement('div');
-        div.className = "staance-widget"
+        div.className = "staance-widget";
+        div.id = createUniqueId()
         window['staance-widget-data'].push(el)
         el.parentNode.insertBefore(div, el);
         
@@ -50,6 +51,19 @@ function createWidgets(){
     }
   
 }
+
+function createUniqueId() {
+    var text = "staance-widget",
+        possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+        length = 5;
+
+    for(var i = 0; i < length; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+
+    return document.getElementById(text) ? makeUniqueId() : text;
+};
+
 
 function getParams(p){
    var params = p.split('/');
