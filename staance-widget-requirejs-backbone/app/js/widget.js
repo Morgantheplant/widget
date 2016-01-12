@@ -6,11 +6,11 @@ define(['underscore', 'jquery', 'list_globals', 'backbone'], function(_, $, list
 
     var $el = $(params.el);
     
-      var link = document.createElement("link");
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    link.href = "../app/css/styles.css";
-    document.getElementsByTagName("head")[0].appendChild(link);
+    //   var link = document.createElement("link");
+    // link.type = "text/css";
+    // link.rel = "stylesheet";
+    // link.href = "../app/css/styles.css";
+    //document.getElementsByTagName("head")[0].appendChild(link);
    
 
     var globals = listGlobals();

@@ -1,6 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
+// babel transform allows es6 features and module bundling
+
 class App extends React.Component {
   constructor () {
     super()
@@ -19,26 +21,30 @@ class App extends React.Component {
   }
 }
 
+
 createWidgets();
 
 function createWidgets(){
-  //create global variable to track which 
-  if(!window['staance-widget-data']) window['staance-widget-data'] = [];
-
+  //create global to track which scripts have already been loaded
+  if(!window['staance-widget-data']){
+    window['staance-widget-data'] = [];
+    //import staance css
+    require('./public/staance-widget-styles.min.css')
+  }
     var scripts = document.getElementsByTagName('script'),
-    numScripts = scripts.length, re = "staance-sqwidget";
+    numScripts = scripts.length, re = "staance-widget";
       
     for(var i = 0, el; i < numScripts; i++){
       var el = scripts[i],
       scriptData =  el.getAttribute('data');
-      
+      //if data on script tag matches and hasn't yet been added to the global 
       if(scriptData && scriptData.match(re) && window['staance-widget-data'].indexOf(el) < 0){
         var widget = getParams(scriptData),
         div = document.createElement('div');
         div.className = "staance-widget"
         window['staance-widget-data'].push(el)
         el.parentNode.insertBefore(div, el);
-        //div.innerHTML = 'hello: ' + widget.uid + 'Staance: ' + widget.aid;
+        
         ReactDOM.render(<App aid={ widget.aid } uid={ widget.uid } />, div)
       }
     }
